@@ -38,3 +38,27 @@ string jCust2 = '{"Name":"MaheshTestJSOn","Phone":"9511646013","FirstName":"Mayu
 Account Acc = (Account)JSON.deserializeStrict(jCust2, Account.class);
 System.debug(Acc);
 insert acc;
+
+
+string jCust2 = '{"Name":"MaheshTestJSOn","Phone":"9511646013","FirstName":"Mayur","Gmail":"Dinesh@gmail.com"}';
+//Account Acc = (Account)JSON.deserializeUntyped(jCust2, Account.class);
+map<String,object> AccObj3 = (Map<String,object>) JSON.deserializeUntyped(jCust2);
+System.debug(AccObj3);
+System.debug(AccObj3.keyset());
+System.debug(AccObj3.values());
+string accname = (string) AccObj3.get('Name');
+string accnPhone = (string) AccObj3.get('Phone');
+string cobFirstName = (string) AccObj3.get('FirstName');
+
+System.debug(accname);
+System.debug(accnPhone);
+
+Account acc = new Account();
+acc.name=accname;
+acc.Phone=accnPhone;
+insert acc;
+
+contact con = new contact();
+con.lastname=accname;
+con.Phone=accnPhone;
+insert con;
