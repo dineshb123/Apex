@@ -1,0 +1,17 @@
+<apex:page controller="API_Integration_INDIAN_POSTAl_CODE">
+    <apex:form id="rs">
+        Enter the pincode : <apex:inputText value="{!pincode}"/>
+        <p> </p>
+        
+        <apex:commandButton value="GOOOOO!" action="{!GetPostalDetails}" reRender="rs"/>
+        <p></p>
+        <p> </p>
+        <apex:dataList value="{!places}" var="a">
+            {!a}
+        
+        </apex:dataList>
+  
+    </apex:form>
+    
+    
+</apex:page>
