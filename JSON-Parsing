@@ -1,0 +1,40 @@
+Integer Age = 10;
+System.debug('Apex Format'+Age);
+String Jsring = JSON.serialize(Age);
+System.debug('JSON Format'+Jsring);
+
+String name = 'Dinesh';
+System.debug('Apex Format'+name);
+String Jsring = JSON.serialize(name);
+System.debug('JSON Format'+Jsring);
+
+Decimal Marks = 99.99;
+System.debug('Apex Format'+Marks);
+String Jsring = JSON.serialize(Marks);
+System.debug('JSON Format'+Jsring);
+
+Account[] accObj =[SELECT Id,name,rating from Account LIMIT 2];
+String Jsring = JSON.serialize(accObj);
+System.debug('JSON Format'+Jsring);
+
+
+
+Student studeObj = new Student();
+studeObj.name = 'Dinesh';
+studeObj.age=23;
+studeObj.Dob=null;
+string jsString = JSON.serializePretty(studeObj,true);
+System.debug('Supress Null JSON Format'+jsString); //Supress Null
+
+
+
+string jCust = '{"Name":"DineshTestJSOn","Phone":"9511646013"}';
+Account Acc = (Account)JSON.deserialize(jCust, Account.class);
+System.debug(Acc);
+insert acc;
+
+
+string jCust2 = '{"Name":"MaheshTestJSOn","Phone":"9511646013","FirstName":"Mayur","Gmail":"Dinesh@gmail.com"}';
+Account Acc = (Account)JSON.deserializeStrict(jCust2, Account.class);
+System.debug(Acc);
+insert acc;
