@@ -1,0 +1,74 @@
+/*
+*@Auhtor : Dinesh Balkawade
+*@Date : 13/12/2022
+*@Description : API_Integration_Gorest
+*@Test Class : 
+*/ 
+public class API_Integration_Gorest {
+    public static void createUser(){
+        list<GOREST__mdt> goRest=[SELECT Id,MasterLabel,BEARER__c,URL__c
+                                  FROM GOREST__mdt];
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setMethod('POST');
+        request.setEndpoint(goRest[0].URL__c);
+        Request.setHeader('Authorization','Bearer '+goRest[0].BEARER__c);
+        Request.setHeader('Content-Type', 'Application/JSON');
+        Request.setBody('{"name": "Sakshi JoshiRAo","email": "Sakshi12Rao2@gmail.com","gender": "female","status": "Active"}');
+        HttpResponse response = http.send(request);
+        System.debug('getStatusCode is'+response.getStatusCode());
+        if(response.getStatusCode() == 200) {
+        }
+        System.debug('Response is'+response.getBody());
+    }
+    public static void getUser(string uniqueId){
+        list<GOREST__mdt> goRest=[SELECT Id,MasterLabel,BEARER__c,URL__c
+                                  FROM GOREST__mdt
+                                  WHERE MasterLabel ='GET_USER'];
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setMethod('GET');
+        request.setEndpoint(goRest[0].URL__c+uniqueId);
+        Request.setHeader('Authorization','Bearer '+goRest[0].BEARER__c);
+        HttpResponse response = http.send(request);
+        System.debug('getStatusCode is'+response.getStatusCode());
+        if(response.getStatusCode() == 200) {
+            System.debug('Response is'+response.getBody());
+        }
+        
+    }
+    public static void updateUser(string uniqueId){
+        list<GOREST__mdt> goRest=[SELECT Id,MasterLabel,BEARER__c,URL__c
+                                  FROM GOREST__mdt
+                                  WHERE MasterLabel ='UPDATE_USER'];
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setMethod('PUT');
+        request.setEndpoint(goRest[0].URL__c+uniqueId);
+        Request.setHeader('Authorization','Bearer '+goRest[0].BEARER__c);
+        Request.setHeader('Content-Type', 'Application/JSON');
+        Request.setBody('{"name": "Sakshi Patil","email": "Sakshi2@gmail.com","gender": "female","status": "Active"}');
+        HttpResponse response = http.send(request);
+        System.debug('getStatusCode is'+response.getStatusCode());
+        if(response.getStatusCode() == 200) {
+            System.debug('Response is'+response.getBody());
+        }
+        
+    }
+    public static void deleteUser(string uniqueId){
+        list<GOREST__mdt> goRest=[SELECT Id,MasterLabel,BEARER__c,URL__c
+                                  FROM GOREST__mdt
+                                  WHERE MasterLabel ='DELETE_USER'];
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setMethod('DELETE');
+        request.setEndpoint(goRest[0].URL__c+uniqueId);
+        Request.setHeader('Authorization','Bearer '+goRest[0].BEARER__c);
+        HttpResponse response = http.send(request);
+        System.debug('getStatusCode is'+response.getStatusCode());
+        if(response.getStatusCode() == 200) {
+            System.debug('Response is'+response.getBody());
+        }
+        System.debug('Response is'+response.getBody());
+    }
+}
