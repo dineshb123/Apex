@@ -1,0 +1,29 @@
+/*
+*@Auhtor : Dinesh Balkawade
+*@Date : 13/12/2022
+*@Description : API_Integration_INDIAN_POSTAl_CODE
+*@Test Class : 
+*/ 
+public class API_Integration_INDIAN_POSTAl_CODE {
+    public list<string> places {set;get;}
+    public string pincode {set;get;}
+    public string POSTOFFICEBRANCHNAME {set;get;}
+    
+    public void GetPostalDetails(){
+        places = new List<string>();
+        string endPointRequest = 'https://api.postalpincode.in/pincode/'+pincode;
+        Http httpReq = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(endPointRequest);
+        request.setMethod('GET');
+        HttpResponse response = httpReq.send(request);
+        string body = response.getBody();
+        system.JSONParser JSONParserString = JSON.createParser(body);//De-Serialization----> Postal code to Apex(JSON To APEX)
+        while(JSONParserString.nextToken() !=null){
+            if(JSONParserString.getText()=='Name'){
+                JSONParserString.nextToken();
+                places.add(JSONParserString.getText());
+            }
+        }
+    }
+}
