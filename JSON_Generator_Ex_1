@@ -1,0 +1,33 @@
+/*
+*@Auhtor : Dinesh Balkawade
+*@Date : 15/12/2022
+*@Description : JSON_Generator With its differents methods(Serialization---->Apex To JSON)
+*@Test Class : 
+*/ 
+
+public class JSON_Generator_Ex_1 {
+    public void createJson(string nm,string ph,string ind){
+        system.JSONGenerator jsonGen = JSON.createGenerator(true);//Step1---->Create JSON Generator
+        jsonGen.writeStartObject();//Start write to JSON
+        try{
+            Account accObj = new Account();
+            accObj.Name = nm;
+            accObj.Phone = ph;
+            accObj.Industry = ind;
+            insert accObj;
+            
+            jsonGen.writeStringField('Status', 'Success'); //Step 3---->As per UR Requerements
+            jsonGen.writeIdField('ACCID',accObj.id);
+            jsonGen.writeStringField('Message','Account Created sucessfully');
+            jsonGen.writeNumberField('CODE', 201);
+        }
+        catch(exception ex){
+            jsonGen.writeStringField('Status', 'FAiled');
+            jsonGen.writeStringField('Message',ex.getMessage());
+            jsonGen.writeNumberField('CODE', 400);
+        }
+        jsonGen.writeEndObject();////Stop write to JSON
+        string Result = jsonGen.getAsString();//Get The final Output JSON
+        system.debug(Result);
+    }
+}
