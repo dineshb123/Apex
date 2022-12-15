@@ -1,0 +1,18 @@
+/*
+*@Auhtor : Dinesh Balkawade
+*@Date : 15/12/2022
+*@Description : JSON_Generator With its differents methods(Serialization---->Apex To JSON)
+*@Test Class : 
+*/ 
+
+public class JSON_Generator {
+    public void createJson(string name,string phone,string industry){
+        system.JSONGenerator jsonGen = JSON.createGenerator(true);//Step1---->Create JSON Generator
+        jsonGen.writeStartObject();//Start write to JSON
+        
+        
+        jsonGen.writeEndObject();////Stop write to JSON
+        string Result = jsonGen.getAsString();//Get The final Output JSON
+        system.debug(Result);
+    }
+}
